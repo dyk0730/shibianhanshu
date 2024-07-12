@@ -1,0 +1,695 @@
+\documentclass[11pt, a4paper, twoside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+\usepackage{geometry}
+\usepackage{ulem}
+
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{geometry}
+\geometry{margin = 1in}
+
+\tcbuselibrary{most}
+
+\usepackage{bm}
+\usepackage{CJKulem}
+\usepackage{color} 
+\usepackage {xcolor}
+
+\newtcbtheorem[number within=section]{mytheorem}{定理}
+{enhanced, breakable,colframe=black!75!white ,fonttitle=\bfseries}{th}
+\newtcbtheorem[number within=section]{mycorollary}{推论}
+{enhanced, breakable,colframe=black!75!white ,fonttitle=\bfseries}{th}
+\newtcbtheorem[number within=section]{mydefinition}{定义}
+{enhanced, breakable,colframe=black!60!white ,fonttitle=\bfseries}{th}
+\newtcbtheorem[number within=section]{myproposition}{命题}
+{enhanced, breakable,colframe=black!45!white ,fonttitle=\bfseries}{th}
+\usepackage{mathrsfs}
+\usepackage{tipa}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+
+
+\usepackage{titlesec}
+\usepackage{titleps}
+\usepackage{tikz}
+
+\newcommand{\chapnumfont}{%
+	\fontsize{100}{100}\usefont{T1}{ptm}{b}{n}%
+}
+
+\colorlet{chapbgcolor}{gray!75}
+\colorlet{chapnumcolor}{black!60}
+
+\newcommand{\chaptitlenumbered}[1]{%
+	\begin{tikzpicture}
+		\fill[chapbgcolor!70,rounded corners=0pt] (0,2.3) rectangle (\linewidth,0);
+		\node[
+		align=right,
+		anchor=south east,
+		inner sep=8pt,
+		font=\huge\normalfont\bfseries
+		] at (0.987\linewidth,0) {\strut#1};
+		\node[
+		align=right,
+		font=\fontsize{60}{62}\usefont{OT1}{ptm}{b}{it},
+		text=chapnumcolor
+		] at (0.975\linewidth,2.1) {\thechapter};
+	\end{tikzpicture}%
+}
+
+\newcommand{\chaptitleunnumbered}[1]{%
+	\begin{tikzpicture}
+		\fill[chapbgcolor!70,rounded corners=0pt] (0,2.3) rectangle (\linewidth,0);
+		\node[
+		align=right,
+		anchor=south east,
+		inner sep=8pt,
+		font=\huge\normalfont\bfseries
+		] at (0.987\linewidth,0) {\strut#1};
+	\end{tikzpicture}%
+}
+
+\titleformat{name=\chapter}[display]
+{\normalfont\huge\bfseries\sffamily}
+{}
+{0pt}
+{\chaptitlenumbered}
+\titleformat{name=\chapter,numberless}[display]
+{\normalfont\huge\bfseries\sffamily}
+{}
+{25pt}
+{\chaptitleunnumbered}
+\titlespacing*{\chapter}
+{0pt}
+{-126pt}
+{33pt}
+
+\setlength\headheight{15pt}
+
+\geometry{a4paper,scale=0.80}
+\title{{\Huge{\heiti{实分析习题选解}}}\\\mathbf{Notes and Exercises}}
+\author{被电信诈骗的小董}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+\newenvironment{proof2}{{\noindent\heiti 证明}}{\hfill $\Box $\par}
+\newenvironment{proof3}{{\noindent\heiti 解}}{\hfill $\Box $\par}
+\begin{document}
+	
+	\maketitle
+	
+	\pagenumbering{roman}
+	\setcounter{page}{1}
+	
+	\begin{center}
+		\huge\textbf{前言}
+	\end{center}~\
+	
+	这是笔记的前言部分. 
+	~\\
+	\begin{flushright}
+		\begin{tabular}{c}
+			小董\\
+			\today
+		\end{tabular}
+	\end{flushright}
+	
+	\newpage
+	\pagenumbering{Roman}
+	\setcounter{page}{1}
+	\tableofcontents
+	\newpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	
+	\chapter{集合与运算}
+	
+	
+	
+	\section{集合及其运算 }
+	
+	\begin{myproposition}{习题5}{}
+		设${A_{n}}$是一集合列,令$$B_{1}=A_{1}, B_{i}=A_{i}\bigg \backslash \bigcup_{j=1}^{i-1} {A_{j}}\quad (i>1)$$
+		证明：${B_{n}}$互不相交,且对任意的$n$，有$\bigcup\limits_{i=1}^{n} {A_{i}}=\bigcup\limits_{i=1}^{n} {B_{i}}$.
+	\end{myproposition}
+	\begin{proof2}
+		1°先证明$B_{i}$互不相交，
+		
+		
+		$\forall i\neq j$，不妨设$i>j$，
+		$\forall x\in A_{i}$且$x\notin A_{k}(k\leq i-1)$，有$x\notin B_{k}(k\leq i-1)$，即$x\notin B_{j}$，从而$B_{i}\bigcap B_{j}=\emptyset $.
+		
+		
+		2°再证明两个集合相等.
+		
+		
+		$\forall n,\forall x \in \bigcup\limits_{i=1}^{n} {B_{i}},\exists k,x\in B_{k}$,则 $x\in A_{k}\subset \bigcup\limits_{i=1}^{n} {A_{i}} $.
+		
+		
+		
+		$\forall n,\forall x \in \bigcup\limits_{i=1}^{n} {A_{i}},\exists k,x\in A_{k}$,
+		
+		
+		
+		若$x\notin \bigcup\limits_{i=1}^{k-1}A_{i}$,则$x\in B_{k}\subset \bigcup\limits_{i=1}^{n} {B_{i}}$.
+		
+		
+		
+		若$x\in \bigcup\limits_{i=1}^{k-1}A_{i}$,则$\exists k_{1},k_{2},\cdots \mathrm{s.t.}x\in A_{k_{i}}$.
+		
+		
+		
+		取$m=min\{ k_{1},k_{2},\cdots \} $,知$x\in A_{m},x\notin A_{m-1},A_{m-2},\cdots,A_{1}$.故$x\in B_{m}\subset \bigcup\limits_{i=1}^{n} {B_{i}}$.
+		
+		
+		
+		综合即有$\bigcup\limits_{i=1}^{n} {A_{i}}=\bigcup\limits_{i=1}^{n} {B_{i}}$.证毕.
+	\end{proof2}
+	
+	
+	\begin{myproposition}{习题7}{}
+		设$f_{n}(x)$是区间$(a,b)$上的单调递增实函数列.证明：
+		$$\forall a\in \mathbb{R} ,\quad \left\{x\big|\lim_{n \to \infty}f_{n}(x)>a\right\}=\bigcup\limits_{n=1}^{\infty}\{x\mid f_{n}(x)>a\}$$
+	\end{myproposition}
+    \begin{proof2}
+		一方面，由数列递增性质以及极限的保序性，若$f_{n}(x)>a$,则有：$\displaystyle\lim_{n \to \infty}f_{n}(x) \geq f_{1}(x) >a$.
+
+
+       另一方面，记$\displaystyle\lim_{n \to \infty}f_{n}(x)=a'$,则$\forall m \in \mathbf{N},\exists N$,当$n\geq N$时，有$\mid f_{n}(x)-a'\mid < \displaystyle\frac{1}{m}$.
+
+
+        则$f_{n}(x)>a'-\displaystyle\frac{1}{m}$.取$m=\left[\displaystyle\frac{1}{a'-a}\right]+1$，则$f_{n}(x)>a'-\displaystyle\frac{1}{m}\geq a$.
+
+
+        即两侧集合互相包含.证毕.
+	\end{proof2}
+
+
+	\begin{myproposition}{习题10}{}
+		设$f_{n}(x)$是$\mathbf{R}$上的函数列,集合$E \subset \mathbf{R}$,已知：
+        $$\lim_{n \to \infty}f_{n}(x)=\mathbf{X_{E}}$$
+        记$E_{n}=\{x\mid f_{n}(x)\geq \displaystyle\frac{1}{2}\}$,求集合$\displaystyle\lim_{n \to \infty}E_{n}$.
+	\end{myproposition}
+    \begin{proof2}
+		当$n \to \infty$时，$E_{n}$中元素都是函数值不小于$\displaystyle\frac{1}{2}$的点.猜测$\displaystyle\lim_{n \to \infty}E_{n}=E$. 
+
+
+        下证这两个集合相等.
+
+
+        $\forall x \in E,\displaystyle\lim_{n \to \infty}f_{n}(x)=1$,则$\exists N_{1}$,当$n\geq N_{1}$时，有：
+        $$\mid f_{n}(x)-1\mid <\displaystyle\frac{1}{2}\Rightarrow f_{n}(x)>\frac{1}{2}\Rightarrow x \in E_{n},n\geq N_{1}\Rightarrow x \in \lim_{n \to \infty}E_{n}$$
+        
+		
+		$\forall x \in \displaystyle\lim_{n \to \infty}E_{n}$,则$\exists N_{2}$,当$n\geq N_{2}$时，有：
+        $$x \in E_{n} \Rightarrow f_{n}(x)\geq \frac{1}{2},\forall n \geq N_{2} \Rightarrow \lim_{n \to \infty}f_{n}(x)=1 \Rightarrow x \in E$$
+       
+		
+		故$\displaystyle\lim_{n \to \infty}E_{n}=E$.
+	\end{proof2}
+
+
+	\begin{myproposition}{习题11}{}
+		设$A_{n}=\{\displaystyle\frac{m}{n}\mid m\in \mathbf{Z}\},n=1,2,…$,证明：
+        $$\varliminf_{n \to \infty}A_{n}=\mathbf{Z};\varlimsup_{n \to \infty}A_{n}=\mathbf{Q}.$$
+	\end{myproposition}
+    \begin{proof2}
+		1°一方面，$\forall x \in \displaystyle\varliminf_{n \to \infty}A_{n},x \in \displaystyle\bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}A_{k}.\exists t,x\in \displaystyle\bigcap_{k=t}^{\infty}A_{k}.$即$x\in A_{t},A_{t+1},…$
+
+
+		设$x=\displaystyle\frac{a_{1}}{t}=\displaystyle\frac{a_{2}}{t+1}(a_{1},a_{2}\in \mathbf{Z})$,变形得$(a_{2}-a_{1})t=a_{1}$,易见$a_{1}\equiv 0(mod\quad0)$.则$x\in \mathbf{Z}$.
+
+
+		另一方面，$\forall x \in \mathbf{Z}$,易见$x$位于$A_{k}$中的第$kx$位，故$x\in A_{k},\forall k \in \mathbf{N}$.则$x\in \displaystyle\varliminf_{n \to \infty}A_{n}.$
+
+
+		于是我们证明了$\displaystyle\varliminf_{n \to \infty}A_{n}=\mathbf{Z}$.
+
+
+		2°一方面，$\forall x \in \displaystyle\varlimsup_{n \to \infty}A_{n},x \in \displaystyle\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}A_{k}.\exists t,x\in \displaystyle\bigcup_{k=t}^{\infty}A_{k}.$则$x \in \displaystyle\bigcup_{k=1}^{\infty}A_{k}.$而$A_{k}\subset \mathbf{Q}$,故$x\in \mathbf{Q}$.
+
+
+		另一方面，$\forall x \in \mathbf{Q}$,记$x=\displaystyle\frac{p}{q},(p,q)=1$.由$x=\displaystyle\frac{p}{q}=\displaystyle\frac{np}{nq}$知$x\in A_{nq}$,令$n \to \infty$,有$x \in \displaystyle\lim_{n\to \infty}\displaystyle\bigcup_{k=n}^{\infty}A_{k}$,即$x\in \displaystyle\varlimsup_{n \to \infty}A_{n}.$
+		
+		
+		于是我们证明了$\displaystyle\varlimsup_{n \to \infty}A_{n}=\mathbf{Q}$.证毕.		
+	\end{proof2}
+
+
+	\begin{myproposition}{习题12}{}
+		设$0<a_{n}<1<b_{n}.n=1,2,…$,已知${a_{n}},{b_{n}}$单调下降,且$\displaystyle\lim_{n \to \infty}a_{n}=0,\displaystyle\lim_{n \to \infty}b_{n}=1$.
+		证明：$$\lim_{n\to \infty}[a_{n},b_{n}]=(0,1].$$
+	\end{myproposition}
+    \begin{proof2}
+		往证：$\displaystyle\varlimsup_{n\to \infty}[a_{n},b_{n}]\subset(0,1]\subset\displaystyle\varliminf_{n\to \infty}[a_{n},b_{n}]$.即证：$\displaystyle\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}[a_{k},b_{k}]\subset(0,1]\subset \displaystyle\bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}[a_{k},b_{k}]$.
+		
+		
+		一方面，若$x\in \displaystyle\bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}[a_{k},b_{k}]$,则$x\in \displaystyle\bigcup_{k=n}^{\infty}[a_{k},b_{k}],\forall n \in \mathbf{N}$.
+		
+		
+		1° 若$x\leq 0$,则$x < a_{n},x\notin \displaystyle\bigcup_{k=n}^{\infty}[a_{k},b_{k}]$,矛盾！
+		
+		
+		2° 若$x>1$,由$\displaystyle\lim_{n \to \infty}b_{n}=1$知，$\forall \varepsilon >0,\exists N$,当$n>N$时，$\mid b_{n}-1\mid<\varepsilon$.取$\varepsilon=x-1$,则有$b_{n}<x$,故$x\notin \displaystyle\bigcup_{k=n}^{\infty}[a_{k},b_{k}]$,矛盾！则$x\in(0,1]$.左式得证.
+		
+		
+		另一方面，若 $x\in(0,1]$.$\forall \varepsilon>0,\exists n$,当$k\geq n$时，$\mid a_{k}-0\mid<\varepsilon$,即$a_{n}<\varepsilon$.取$\varepsilon=x$,则$a_{k}<x\leq 1 \leq b_{k} \Rightarrow x \in [a_{k},b_{k}](k\leq n)$.故$x \in \displaystyle\bigcap_{k=n}^{\infty}[a_{k},b_{k}] \Rightarrow x \in \displaystyle\bigcup_{n=1}^{\infty}\bigcap_{k=n}^{\infty}[a_{k},b_{k}]$.右式得证.证毕.
+	\end{proof2}
+
+
+    \section{映射}
+
+	\begin{myproposition}{习题13}{}
+	    证明$\mathbf{R^2}$中至少有一个圆周不含有理点.
+    \end{myproposition}
+	\begin{proof2}
+		用反证法。假设每个圆周都含有有理点，则$\forall r>0,\{(x,y)\mid x^2+y^2=r^2\}\bigcap \mathbf{Q}\neq \emptyset.$
+
+        
+		故可以找到 $\mathbf{R^{+}} \to \mathbf{Q^2},r \mapsto  (x,y)$的一个单射.则$c \leq {N}_{0}\times {N_{0}}={N_{0}}$.这与$c>N_{0}$矛盾.证毕. 
+    \end{proof2}
+
+
+	\begin{myproposition}{习题15}{}
+		给出$\mathbf{R\backslash Q}$到$\mathbf{R}$之间的一一对应.
+    \end{myproposition}
+	\begin{proof3}
+		在大多数情况下，关于不可数$\to$不可数$+$可数的构造，都是绝大部分个元素映射到自身，剩下可列个元素错位映射.
+
+
+		现给出如下构造：$f_{1}(x):\mathbf{Q}+\sqrt{2} \to  \mathbf{Q}\bigcup \mathbf{Q}+\sqrt{2}$（两个集合均可列）
+		$$f(x)=\left\{\begin{matrix}
+			x \qquad & x\in \mathbf{R\backslash Q\bigcup \mathbf{Q}+\sqrt{2}}\\
+			f_{1}(x) & x\in \mathbf{Q}+\sqrt{2}
+		   
+		   \end{matrix}\right.$$
+		下面是一个$(0,1]\to (0,1)$的构造.
+		$$f(x)=\left\{\begin{matrix}
+			x&other\\\displaystyle\frac{1}{2}x & \exists n \in \mathbf{N},\displaystyle\frac{1}{x}=2^{n}
+		\end{matrix}\right.$$    
+	\end{proof3}
+
+
+	\begin{myproposition}{习题17}{}
+		有理系数多项式的实零点称为代数数，不是代数数的实数称为超越数.证明：全体代数数的集合的势为$N_{0}$,而超越数的势为$c$.
+    \end{myproposition}
+	\begin{proof2}
+		1°先证明：全体代数数的集合的势为$N_{0}$.记全体$n$次有理系数多项式的全体为$A_{n},n=1,2,…$.
+
+
+		则全体有理系数多项式的全体$A=\displaystyle\bigcup_{n=1}^{\infty}A_{n}.$注意到:$$A_{n}=\{f\mid f=a_{0}x^{0}+a_{1}x^{1}+…+a_{n}x^{n},a_{i}\in\mathbf{Z},a_{n}\in \mathbf{N}\}.$$
+		
+		
+		易见$A_{n}$与$(a_{1},a_{2},…,a_{n})$对等，故$A_{n}$的势为$N_{0}^{n}=N_{0} \Rightarrow A_{n}$可列$\Rightarrow \displaystyle\bigcup_{n=1}^{\infty}A_{n}$可列.
+		
+		
+		而$\forall f \in  A_{n},f$至多有$n$个实零点，即$A_{n}$对应至多$n$个代数数，$\displaystyle\bigcup_{n=1}^{\infty}A_{n}\times \{1,2,…,n\}\to $代数数$\mathbf{M}$.
+		
+		
+		故$\mid \mathbf{M}\mid =N_{0}$.
+		
+		
+		2°证明全体超越数构成的集合$\mathbf{G}$的势为$c$是类似第15题的，这是因为$\mathbf{G}=\mathbf{R}\backslash\mathbf{M}\sim\mathbf{R}$.证明从略.
+	\end{proof2}
+
+
+	\begin{myproposition}{习题18}{}
+		$\mathbf{R}$上全体开集记为$\mathcal{T} $，证明$\mid \mathcal{T}\mid=c$.    
+	\end{myproposition}
+	\begin{proof2}
+		一方面，$(-1,1)\in \mathcal{T}\Rightarrow \mid \mathcal{T}\mid \geq \mid (-1,1) \mid = c$.
+		
+		
+		另一方面，$\forall \mathbf{A} \in \mathcal{T},f:\mathbf{A} \mapsto \mathbf{A}\bigcap \mathbf{Q},\mathcal{T}\to 2^{\mathbf{Q}}$是单射，故$\mid \mathcal{T}\mid\leq c$.
+		
+		
+		证毕.
+		
+		
+		$Tips:$本题还有一般解法，需要如下两个漂亮的结论.读者可用该结论自行证明本题.
+		$$\mid A_{i}\mid =c \Rightarrow \mid \displaystyle\prod _{i=1}^{\infty}A_{i}\mid =c.$$
+		
+		
+		一方面，由$x\mapsto (f_1{x},f_{2}(x),…,f_{n}(x),…),\mathbf{R}\to \displaystyle\prod _{i=1}^{\infty}A_{i}$为单射知$\mid \displaystyle\prod _{i=1}^{\infty}A_{i}\mid \geq c.$
+		
+		
+		另一方面，设$\displaystyle\prod _{i=1}^{\infty}A_{i}=(a^{(1)},a^{(2)},…)$,其中$a^{(i)}=0.a_{1}^{(i)}a_{2}^{(i)}a_{3}^{(i)}……$,
+		
+		
+		显然$A_{i}=(0,1]$,满足$\mid A_{i}\mid =c$.从$a^{(i)}=0.a_{1}^{(i)}a_{2}^{(i)}a_{3}^{(i)}……$中
+		
+		
+		我们选择$a^{(i)}$的小数点后第$i$位作为数$a$的小数点后第$i$位，则有$(a^{(1)},a^{(2)},…)\mapsto a,\displaystyle\prod _{i=1}^{\infty}A_{i}\to \mathbf{R}$
+		为单射，故$\mid \displaystyle\prod _{i=1}^{\infty}A_{i}\mid \leq c.$证毕.
+		
+		
+		此结论也即22题.
+		
+		
+		$$\mid A_{i}\mid =c \Rightarrow \mid \displaystyle\bigcup _{i=1}^{n}A_{i}\mid =c.$$
+		
+		
+		显然.将各个集合映射成数轴上互不相交但相连的区间即可，这里不做证明.
+	\end{proof2}
+
+	\begin{myproposition}{习题20}{}
+		设$\mathbf{X}$是无限集合，给定：$f:\mathbf{X}\to \mathbf{X},f$不是恒同映射.
+		证明：$\exists \mathbf{E},\mathbf{E}$是$\mathbf{X}$的非空真子集且$f(\mathbf{E})\subset \mathbf{E}$.    
+	\end{myproposition}
+	\begin{proof2}
+		由于$f:\mathbf{X}\to \mathbf{X},f$不是恒同映射，故$\exists a \in \mathbf{X},f(a)\neq a$但$f(a)\in \mathbf{X}$.
+
+
+		令$\mathbf{E}=\{f(a),f^{2}(a),…\}$,则$f(\mathbf{E})\subset\mathbf{E}.$
+
+
+		由归纳原理可知,$\forall n,f^{n}(x)\in \mathbf{X}$，即$\mathbf{E}\subset \mathbf{X}$.
+
+
+		下面只需证明：$\mathbf{E}\neq \mathbf{X}$.
+
+
+		考虑反证法.假设$\mathbf{E}= \mathbf{X}$，则$a\in \mathbf{E}$.即$\exists n,f^{n}(a)=a$,
+
+
+		则$f^{n+1}(a)=f(a),f^{n+2}(a)=f^{2}(a),…\Rightarrow\mid \mathbf{E}\mid=n$.这与$\mathbf{X}$是无限集合矛盾！证毕.
+	\end{proof2}
+
+
+	\begin{myproposition}{习题25}{}
+		记区间$[0,1]$上的连续函数全体为$C[0,1]$，试证明:$\mid C[0,1]\mid =c$.	
+	\end{myproposition}
+	\begin{proof2}
+		一方面，取常值函数集合$A=\{f\mid f(x)=a,a\in[1,2]\}$,则$A\subset C[0,1]$,故$\mid C[0,1]\mid \geq \mid A\mid =c.$
+	
+
+		另一方面，$\forall f\in C[0,1]$,记$A_{f}=\{f(x)\mid x\in [0,1]\bigcap \mathbf{Q}\}$.
+
+
+		易见$A_{f}$中元素个数为$N_{0}$,是可列的.这样的$A_{f}$的个数为$c$.
+
+
+		则$C[0,1]\to \displaystyle\bigcup_{f\in C[0,1]}A_{f}=\displaystyle\bigcup_{f\in C[0,1]}\{f(x_{1}),f(x_{2}),…\}$为单射.
+
+
+		由第18题结论可知$\mid C[0,1]\mid \leq \mid \displaystyle\bigcup_{f\in C[0,1]}A_{f}\mid \leq c.$证毕.
+	\end{proof2}
+
+
+	\begin{myproposition}{习题26}{}
+		记$\mathbf{R}$上一切实值函数的全体为$\psi $,试证明：$\mid \psi \mid=2^{c}$.	\end{myproposition}
+	\begin{proof2}
+		构造$f:2^{\mathbf{R}}\to \psi ,A\mapsto \mathbf{X_{A}}$.则$f$为单射，可得$\mid \psi \mid \leq 2^{c}$.
+
+
+		构造$g:\psi\to 2^{\mathbf{R^{2}}}  ,f \mapsto \{x,f(x)\mid x \in \mathbf{R}\}$.则$g$为单射，可得$\mid \psi \mid \geq 2^{c}$.
+
+
+		综上，$\mid \psi \mid=2^{c}$.证毕.
+
+
+		$Tips:$25题是一条条平面内的曲线，26题是一条条空间内的曲线.25题取常值函数作为突破口，26题取特征函数作为突破口.25题用$f(x)$表征$x$，26题用$(x,f(x))$表征$f$.
+		常值函数与特征函数在今后测度的学习中也常常作为问题的特殊情形，并能通过特征函数找到简单函数，解决可测函数的问题.
+	\end{proof2}
+
+    \section{$n$维欧氏空间}
+
+    \begin{myproposition}{习题2}{}
+        证明：$\mathbf{A} \subset \mathbf{R^{n}}$是开集$\Leftrightarrow \forall \mathbf{B}\subset \mathbf{R^{n}},\mathbf{A}\bigcap \overline{\mathbf{B}}\subset \overline{\mathbf{A}\bigcap \mathbf{B}}$
+    \end{myproposition}
+    \begin{proof2}
+        注意到$\mathbf{A}\bigcap \overline{\mathbf{B}}=\mathbf{A}\bigcap(\mathbf{B}\bigcup\mathbf{B'})=(\mathbf{A}\bigcap\mathbf{B})\bigcup (\mathbf{A}\bigcap\mathbf{B'})$
+
+
+        $\overline{\mathbf{A}\bigcap \mathbf{B}}=(\mathbf{A}\bigcap \mathbf{B})\bigcup (\mathbf{A}\bigcap \mathbf{B})'=(\mathbf{A}\bigcap \mathbf{B})\bigcup (\mathbf{A'}\bigcap \mathbf{B'})$
+
+
+        故只需证明：$\mathbf{A} \subset \mathbf{R^{n}}$是开集$\Leftrightarrow \forall \mathbf{B}, \mathbf{A}\bigcap\mathbf{B'} \subset (\mathbf{A}\bigcap \mathbf{B})\bigcup (\mathbf{A'}\bigcap \mathbf{B'})$.
+
+
+        充分性：当$\mathbf{A}$为开集时，$\mathbf{A} \subset \mathbf{A'}$,显然成立.
+
+
+        必要性：取$\mathbf{B}=\mathbf{A^{c}}$，则$\mathbf{A}\bigcap \overline{\mathbf{A^{c}}}\subset \overline{\mathbf{A}\bigcap \mathbf{A^{c}}}=\emptyset$,故$\overline{\mathbf{A^{c}}}\subset \mathbf{A^{c}}$，又$\mathbf{A^{c}\subset\overline{\mathbf{A^{c}}} }$，则$\overline{\mathbf{A^{c}}}=\mathbf{A^{c}}$.
+
+
+        所以$\mathbf{A^{c}}$为闭集，$\mathbf{A}$为开集. 
+
+		可由此题引申出一些有意思的结论：
+
+
+        若$\mathbf{G_{1}},\mathbf{G_{2}}$是$\mathbf{R^{n}}$中互不相交的开集，则$\mathbf{G_{1}}\bigcup \overline{\mathbf{G_{2}}}=\emptyset.$
+
+        若$\mathbf{F_{1}},\mathbf{F_{2}}$是$\mathbf{R^{n}}$中互不相交的闭集，则$\exists \mathbf{G_{1}},\mathbf{G_{2}}$是$\mathbf{R^{n}}$中互不相交的开集满足
+        $\mathbf{F_{1}\subset \mathbf{G_{1}}},\mathbf{F_{2}\subset \mathbf{G_{2}}}$.
+    \end{proof2}
+
+
+    \begin{myproposition}{习题4}{}
+        若集合$\mathbf{A}\subset \mathbf{R^{n}}$只有孤立点，证明：$\mathbf{A}$是至多可数集.
+    \end{myproposition}
+    \begin{proof2}
+        $\mathbf{A}\subset \mathbf{R^{n}}$只有孤立点$\Rightarrow \forall x \in \mathbf{A},\exists r>0,B_{r}(x)\bigcap\mathbf{A}={x}$.
+
+
+        注意到$\mathbf{Q^{n}}$在$\mathbf{R^{n}}$中稠密.可取$y\in B_{r}(x)\bigcap\mathbf{Q^{n}}$，则$x\mapsto y,\mathbf{A} \to B_{r}(x)\bigcap\mathbf{Q^{n}}$为单射.
+
+
+        故$\mid \mathbf{A}\mid \leq \mid\mathbf{Q^{n}} \mid =N_{0}$.证毕.
+
+
+
+    \end{proof2}
+
+
+    \begin{myproposition}{习题6}{}
+        $\mathbf{A}\subset \mathbf{R^{n}}$可列，证明：$\exists x \in \mathbf{R^{n}},s.t.\mathbf{A}\bigcap (\mathbf{A}+x)=\emptyset$.
+        其中$\mathbf{A}+x=\{x+y\mid y\in\mathbf{A}\}.$
+    \end{myproposition}
+    \begin{proof2}
+        记$\mathbf{A}=\{r_{n}\}_{n=1}^{\infty}.$
+
+        若$y \in \mathbf{A}\bigcap (\mathbf{A}+x)$,则$\exists m,n, s.t.r_{m}=r_{n}+x$.故$x=r_{m}-r_{n}$.
+
+        全体$x$构成集合$\{r_{m}-r_{n}\}$.显然该集合为可数集.故$\exists x \in \mathbf{R^{n}},x \notin \{r_{m}-r_{n}\}$.证毕.
+        
+    \end{proof2}
+
+
+    \begin{myproposition}{习题7，19}{}
+        设集合$\mathbf{A}\subset \mathbf{R^{n}}$.证明：从$\mathbf{A}$的任意一个开覆盖中可以取出可列个子覆盖.
+        
+        
+        推论：设集合$\mathbf{A}\subset \mathbf{R^{n}}$.若$\forall x\in \mathbf{R^{n}},\exists r,s.t.\mathbf{A}\bigcap \mathbf{B_{r}(x)}$为可列集，则$\mathbf{A}$是可列集.
+    \end{myproposition}
+    \begin{proof2}
+        有限覆盖定理告诉我们，有界闭集的开覆盖中可以取出有限个子覆盖.而命题1.3.4则是将此结论推广为“任意集合的开覆盖中可以取出可列个子覆盖”.$\{B(x,\sigma _{x})\mid x\in \mathbf{A}\}$是$\mathbf{A}$的一个开覆盖.
+        从每个$\{B(x,\sigma _{x})\}$中取出一个有理数点代表这个球邻域,可知任意集合的开覆盖中可以取出可列个子覆盖.证毕.
+
+        利用习题19的结论，习题7是显然的.这里不再赘述.
+    \end{proof2}
+
+    \begin{myproposition}{习题8}{}
+        设集合$\mathbf{A},\mathbf{B} \subset \mathbf{R}$.证明：$$(\mathbf{A}\times \mathbf{B})'=(\overline{\mathbf{A}}\times\mathbf{B'})\bigcup (\mathbf{A'}\times\overline{\mathbf{B}}).$$
+    \end{myproposition}
+    \begin{proof2}
+        $(a,b)\in(\mathbf{A}\times \mathbf{B})'$ 
+        
+        $\Leftrightarrow(a,b)\in \overline{(\mathbf{A}\times \mathbf{B})\backslash{\{(a,b)\}}}$
+
+        $\Leftrightarrow (a,b)\in \overline{(\mathbf{A}\backslash{\{a\}})\times (\mathbf{B}\backslash{\{b\}})}     $
+        
+        $\Leftrightarrow (a,b)\in \overline{(\mathbf{A}\backslash{\{a\}})\times \mathbf{B}} \bigcup \overline{ \mathbf{A}\times (\mathbf{B}\backslash{\{b\}})}$
+        
+        $\Leftrightarrow \exists \{(a_{n},b_{n})\}\subset (\mathbf{A}\backslash{\{a\}})\times \mathbf{B},s.t.(a_{n},b_{n}) \to (a,b)$或$\exists \{(a_{n},b_{n})\}\subset  \mathbf{A}\times (\mathbf{B}\backslash{\{b\}}),s.t.(a_{n},b_{n}) \to (a,b)$
+   
+        $\Leftrightarrow \exists \{a_{n}\}\subset \mathbf{A}\backslash\{a\},\{b_{n}\}\subset\mathbf{B},s.t.\{a_{n}\}\to a,\{b_{n}\} \to b$或$\exists \{a_{n}\}\subset \mathbf{A},\{b_{n}\}\subset\mathbf{B}\backslash\{b\},s.t.\{a_{n}\}\to a,\{b_{n}\} \to b.$
+
+        $\Leftrightarrow a\in\mathbf{A'},b \in \overline{\mathbf{B}}$或$a\in \overline{\mathbf{A}},b\in \mathbf{B'}$
+
+        $\Leftrightarrow (a,b) \in (\overline{\mathbf{A}}\times\mathbf{B'})\bigcup (\mathbf{A'}\times\overline{\mathbf{B}})$.证毕.
+
+    \end{proof2}
+
+    \begin{myproposition}{习题10}{}
+		设$f\in C^{1}[a,b]$,令$$\mathbf{E}=\{x\in[a,b]\mid f(x)=0\}\bigcup\{x\in[a,b]\mid f'(x)>0\}.$$
+		证明:$\mathbf{E}$中每一点皆是$\mathbf{E}$中的孤立点.
+	\end{myproposition}
+    \begin{proof2}
+		考虑反证法.假设$x\in\mathbf{E}$不是$\mathbf{E}$的孤立点，则$x\in\mathbf{E'}$.	
+        
+        则$\exists \{x_{n}\} \subset \mathbf{E}\backslash{x},s.t.x_{n}\to x.$
+
+		此时$f'(x)=\displaystyle\lim_{n \to \infty}\displaystyle\frac{f(x_{n})-f(x)}{x_{n}-x}=0,$与$x\in \mathbf{E}$矛盾.
+		
+		故而$\mathbf{E}$中每一点皆是$\mathbf{E}$中的孤立点.
+	\end{proof2}
+
+	\begin{myproposition}{习题13}{}
+		证明：$\mathbf{R}$上任何实函数$f$的连续点之集是$G_{\delta }$集.
+	\end{myproposition}
+	\begin{proof2}
+		先证明几个引理.
+
+		\textsl{引理1：设$f(x)$是$R$上的实函数，则对于$\forall \varepsilon>0,\{x\mid w(x)<\varepsilon\}$为开集.其中$w(x)=\displaystyle\lim_{\delta\to 0^{+}} sup \{\mid f(x_{1})-f(x_{2})\mid \mid x_{1},x_{2}\in O(x,\delta)\}.$ }
+	
+		引理1的证明：记$E=\{x\in\mathbf{R}\mid w(x)<\varepsilon\}.$任取$x_{0}\in\mathbf{E},$则$w(x_{0})<\varepsilon$.由极限的保号性知，$\exists \delta_{0}>0,s.t.sup\{\mid f(x_{1})-f(x_{2})\mid x_{1},x_{2}\in O(x_{0},\delta_{0})\}$.
+
+		易见$O(x_{0},\displaystyle\frac{1}{2}\delta_{0})\subset \mathbf{E}$.故$x_{0}$是$\mathbf{E}$的内点,即$\mathbf{E}$是开集.
+
+		\textsl{引理2：设$f(x)$是$R$上的实函数，$f(x)$在$x_{0}$处连续的充要条件为$w(x_{0})=0$.}
+
+		引理2的证明：
+		
+		必要性：$f(x)$在$x_{0}$处连续$\Rightarrow,\forall \varepsilon>0,\exists \delta_{0}>0$,当$x\in O(x_{0},\delta_{0})$时，$\mid f(x)-f(x_{0})\mid<\displaystyle\frac{\varepsilon}{4}.$
+
+		故当 $x_{1},x_{2}\in O(x,\delta),\mid f(x_{1})-f(x_{2})\mid \leq \mid f(x_{1})-f(x_{0})\mid + \mid f(x_{2})-f(x_{0})\mid < \displaystyle\frac{\varepsilon}{2}.$
+		所以当$0<\delta\leq \delta_{0}$时，$sup\{\mid f(x_{1})-f(x_{2})\mid x_{1},x_{2}\in O(x_{0},\delta)\}\leq \varepsilon.$
+
+		故$w(x)=\displaystyle\lim_{\delta\to 0^{+}}sup\{\mid f(x_{1})-f(x_{2})\mid \mid x_{1},x_{2}\in O(x,\delta)\}=0.$ 
+	
+		充分性：$w(x)=0 \Rightarrow \forall \varepsilon,\exists \delta_{0}>0,s.t.$当$0<\delta\leq\delta_{0}$时，$sup\{\mid f(x_{1})-f(x_{2})\mid x_{1},x_{2}\in O(x_{0},\delta)\}< \varepsilon.$
+		取$x_{1}=x,x_{2}=x_{0}$,得$\mid f(x)-f(x_{0})\mid<\varepsilon \Rightarrow f(x)$在$x_{0}$处连续.
+		
+		再证明此题.
+
+		由引理1，引理2可知：$\mathbf{E}=\displaystyle\bigcap_{n=1}^{\infty}\{x\in\mathbf{R}\mid w(x)<\displaystyle\frac{1}{n}\}$,故$\mathbf{E}$是$G_{\delta }$集.
+
+	\end{proof2}
+
+
+	\begin{myproposition}{习题15}{}
+		设$\{\mathbf{G_{k}}\}$是$\mathbf{R^{n}}$中开集的升列，有界闭集$\mathbf{F}$是$\displaystyle\bigcup_{k}\mathbf{G_{k}}$的子集，证明：$\mathbf{F}$含于某个$\mathbf{G_{k}}$中.
+	\end{myproposition}
+	\begin{proof2}
+		\textsl{容易认为$\mathbf{F}$包含于一个比较大的$\mathbf{G_{k}}$中.有多大？如何刻画多大？}
+       
+		$\displaystyle\bigcup_{k}\mathbf{G_{k}}$是$\mathbf{F}$的开覆盖，由有限覆盖定理，可以从中取出$\{\mathbf{G_{K_{1}}},\mathbf{G_{k_{2}},…,\mathbf{G_{k_{n}}}}\}$使得
+		$\mathbf{F}\subset \displaystyle\bigcup_{t=1}^{n}\mathbf{G_{kt}}$.
+
+		由$\mathbf{G_{K_{1}}}\subset\mathbf{G_{k_{2}}\subset…\subset\mathbf{G_{k_{t}}}}$知$\mathbf{F}\subset \displaystyle\bigcup_{t=1}^{n}\mathbf{G_{kt}}=\mathbf{G_{kn}}$.证毕.
+
+	\end{proof2}
+
+	\begin{myproposition}{习题16}{}
+		设$\mathbf{F_{k}}$是$\mathbf{R^{n}}$中有界闭集的下降列.若$\mathbf{G}$是一个开集满足$\displaystyle\bigcap_{k}\mathbf{F_{k}}\subset \mathbf{G}$,证明：$\mathbf{G}$包含某个$\mathbf{F_{k}}.$
+	\end{myproposition}
+    \begin{proof2}
+		\textsl{类比上一题，发现此题证明需要条件$\mathbf{G^{c}}$为有界闭集.如何找到这样一个和$\mathbf{G^{c}}$性质相似的有界闭集？}
+
+		考虑取辅助集——有界闭集$\mathbf{E},s.t.\mathbf{G}\subset \mathbf{F_{1}}\subset\mathbf{E}$.可以看出$\mathbf{E}\bigcap\mathbf{G^{c}}$为有界闭集.
+		利用补集性质转化已有条件，可知：$\mathbf{E^{c}}\bigcup \mathbf{G}$包含某个$\mathbf{F_{k}}$.
+
+		结合待证，我们希望证明更强的：$\mathbf{E^{c}}$不包含$\mathbf{F_{k}}$.这由我们的构造是显然的.
+
+		易见$\{\mathbf{F_{k}}\}$为开集升列，$\mathbf{E}\bigcap\mathbf{G^{c}}$为有界闭集，$\displaystyle\bigcap_{k}\mathbf{F_{k}} \subset \mathbf{G} \subset \mathbf{G}\bigcup \mathbf{E^{c}}.$
+		$\Rightarrow \mathbf{E}\bigcap \mathbf{G^{c}} \subset \displaystyle\bigcup_{k}\mathbf{F_{k}^{c}}$,由上题结论，不难有$\mathbf{F_{k_{n}}}\subset \mathbf{E^{c}}\bigcup \mathbf{G}.$
+		而$\mathbf{E^{c}}$不包含$\mathbf{F_{k}}$，故$\mathbf{F_{k_{n}}} \subset \mathbf{G}$.证毕.
+	\end{proof2}
+	
+	\begin{myproposition}{习题18}{}
+		设$\mathbf{F_{\alpha}}$是$\mathbf{R^{n}}$中一族有界闭集，若任取其中有限个$\mathbf{F_{\alpha_{1}}}$、$\mathbf{F_{\alpha_{2}}}$、……、$\mathbf{F_{\alpha_{n}}}$,都有$\displaystyle \bigcap_{i=1}^{m} {\mathbf{F_{\alpha_{i}}}}\neq \emptyset.$
+		证明：$\bigcap{\mathbf{F_{\alpha}}}\neq \emptyset$.
+	\end{myproposition}
+    \begin{proof2}
+		由题中关键词“有界闭集”、“有限”容易联想到有限覆盖定理.
+
+		反证法.假设$\bigcap{\mathbf{F_{\alpha}}} = \emptyset$.则$\bigcup \mathbf{F_{\alpha}}=\mathbf{R^{n}}$.故对于某个$\mathbf{F_{\alpha _{0}}}$,$\bigcup F_{\alpha}$是其开覆盖.
+
+		由有限覆盖定理，知$\exists \mathbf{F_{\alpha_{i}}^{c}},\displaystyle\mathbf{F_{\alpha _{0}}} \subset \bigcup_{i=1}^{n}F_{\alpha_{i}}^{c}$, 
+		即$\displaystyle\bigcap_{i=1}^{n}\mathbf{F_{\alpha_{i}}}\subset \mathbf{F_{\alpha_{0}}^{c}}.$故$\mathbf{F_{\alpha _{0}}} \cap  \displaystyle \bigcap_{i=1}^{n}\mathbf{F_{\alpha_{i}}}=\emptyset$.这与题设矛盾！
+
+		证毕！
+	\end{proof2}
+
+
+	\begin{myproposition}{习题26}{}
+		$\mathbf{E}$是$\mathbf{F}$的任一无限子集，证明：$\mathbf{F}\subset\mathbf{R_{n}}$是有界闭集当且仅当$\mathbf{E'}\bigcap\mathbf{F}\neq \emptyset$.
+	\end{myproposition}
+    \begin{proof2}
+        1° 必要性
+
+		反证.假设$\mathbf{E'}\bigcap\mathbf{F}=\emptyset$.由$\mathbf{F}$为闭集且$\mathbf{E}$为$\mathbf{F}$的子集
+		可知$\mathbf{E'}\subset\mathbf{F'}\subset\mathbf{F}$,故$\mathbf{E'}\bigcap\mathbf{F}=\mathbf{E'}$.即$\mathbf{E'}=\emptyset$.
+
+		由$Bolzano\quad Weierstrass$极限点定理可知，有界无限集合必有聚点，即$\mathbf{E'} \neq 0$.矛盾！故$\mathbf{E'}\bigcap\mathbf{F}\neq \emptyset$.
+
+		2°充分性
+
+		反证.若$\mathbf{F}$无界（直观上感觉可以取出足够分散的子集$\mathbf{E}$,使得$\mathbf{E'}=\emptyset$）.
+		
+		取$\mathbf{E}=\{x_{k}\mid k\geq 1\} \subset \mathbf{F_{1}}$,使得$d(x_{k},0)>k$且$d(x_{k},x_{p})>1,\forall p\neq k$.
+
+		易见此时$\mathbf{E'}=\emptyset$，则$\mathbf{E'}\bigcap\mathbf{F}=\emptyset$,矛盾！故$\mathbf{F}$有界.
+
+		若$\mathbf{F}$中存在某收敛点列$\{x_{k}\},x_{k}\to x$,取$\mathbf{E}=\{x_{k}\}$,则$\mathbf{E'}=\{x\}$.
+
+		又$\mathbf{E'}\bigcap\mathbf{F}\neq \emptyset$,故$x\in\mathbf{F}$.
+	    这表明$\mathbf{F}$中所有收敛点列所收敛到的聚点都在$\mathbf{F}$中,$\mathbf{F}$为闭集.
+
+		证毕！
+	\end{proof2}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
